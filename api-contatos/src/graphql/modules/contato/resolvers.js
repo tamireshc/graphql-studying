@@ -1,22 +1,19 @@
-
-
 module.exports = {
   Query: {
     contatos: async (obj, args, context, info) => {
-      console.log(context.UsuariocadastroService)
-     
-
-      
-    }
+      return await context.usuarioCadastroService.contatos();
+    },
   },
   Mutation: {
-    criarContato: async (_, { data }) =>
-     await usuariocadastroService.criarContato(data),
+    criarContato: async (_, { data }, context) => {
+      return await context.usuarioCadastroService.criarContato(data);
+    },
 
-    atualizarContato: async (_, { id, data }) =>
-      await usuariocadastroService.atualizarContato( id, data ),
+    atualizarContato: async (_, { id, data }, context) =>
+      await context.usuarioCadastroService.atualizarContato(id, data),
 
-    deletarContato: async (_, { filtro }) => await usuariocadastroService.deletarContato(filtro)
+    deletarContato: async (_, { filtro }, context) =>
+      await context.usuarioCadastroService.deletarContato(filtro),
 
     // uso
     // mutation{
