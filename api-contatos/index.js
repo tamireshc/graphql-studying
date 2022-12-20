@@ -4,6 +4,7 @@ const {
 } = require("apollo-server-core");
 
 const { resolvers, typeDefs } = require("./src/graphql");
+const UsuarioCadastroService = require("./src/services/UsuarioCadastroService");
 
 const server = new ApolloServer({
   typeDefs,
@@ -15,6 +16,9 @@ const server = new ApolloServer({
     // }
     return error;
   },
+  context:()=>{
+   UsuarioCadastroService
+  }
 });
 
 server.listen({ port: 4000 }, () =>
