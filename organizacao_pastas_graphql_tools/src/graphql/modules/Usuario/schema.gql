@@ -1,0 +1,30 @@
+type Usuario {
+  idade: Int
+  salario: Float
+  nome: String
+  ativo: Boolean
+  id: ID
+  tecnologias: [String]!
+  telefone: Int
+  perfil: Perfil
+}
+
+type Query {
+  usuarios: [Usuario]
+  usuario(id: Int, nome: String): Usuario
+}
+
+input UsuarioInput {
+  nome: String
+  telefonefixo: Int
+}
+
+type Mutation {
+  criarUsuario(nome: String, telefonefixo: Int): Usuario!
+  atualizarUsuario(id: Int!, nome: String, telefonefixo: Int): Usuario!
+  deletarUsuario(id: Int!): Boolean
+
+  #! ou utilizando input tudo vai ter que ser passado ou desestruturado de data
+  # criarUsuario(data:UsuarioInput): Usuario!
+  # atualizarUsuario(data:id: Int!, UsuarioInput): Usuario!
+}

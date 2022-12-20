@@ -1,0 +1,12 @@
+version: "3.5"
+services:
+  db:
+    image: postgress
+    container_name: db-postgress
+    platform: linux/x86_64
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESS_PASSWORD=password
+    restart: "always"
+    
