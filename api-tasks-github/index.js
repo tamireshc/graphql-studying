@@ -4,6 +4,9 @@ const {
 } = require("apollo-server-core");
 
 const { resolvers, typeDefs } = require("./src/graphql");
+const GitHubService = require("./src/services/GitHub.service");
+const TasksRegisterService = require("./src/services/TasksRegisterService");
+const UserRegisterService = require("./src/services/UserRegisterService");
 
 const server = new ApolloServer({
   typeDefs,
@@ -14,6 +17,17 @@ const server = new ApolloServer({
     //   return new Error(error.message);
     // }
     return error;
+  },
+  dataSources: () => ({
+    githubService: GitHubService,
+    userRegisterService: UserRegisterService,
+    taskService: TasksRegisterService,
+  }),
+  context: ({ req }) => {
+    const user_id = req.headers.authorization;
+    return {
+      user_id,
+    };
   },
 });
 

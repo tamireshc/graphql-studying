@@ -2,8 +2,9 @@ type User {
   id: Int
   login: String
   avatar_url: String
+  tasks: [Task]
 }
 
-type Query{
-  user(login:String): User
+type Query {
+  user(login: String): User
 }
