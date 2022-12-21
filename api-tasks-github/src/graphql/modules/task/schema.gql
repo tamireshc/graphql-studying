@@ -13,6 +13,7 @@ input TaskInput {
 
 type Query {
   tasks: [Task]
+  task(id: Int): Task
 }
 
 type Mutation {
