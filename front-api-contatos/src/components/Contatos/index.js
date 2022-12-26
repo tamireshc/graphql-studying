@@ -1,16 +1,13 @@
 import React from "react";
 import Item from "../Item";
-import MyContext from "../../context/ContatosContext"
+import MyContext from "../../context/ContatosContext";
 
 // import data from "../../data";
 
-
 function Contatos() {
-  const { contatos } = React.useContext(MyContext)
+  const { contatos } = React.useContext(MyContext);
 
-
-  if (contatos.loading) return <div className="contatos">Carregando...
-  </div>
+  if (contatos.loading) return <div className="contatos">Carregando...</div>;
   return (
     <div className="contatos">
       {contatos.itens.map((item, index) => (

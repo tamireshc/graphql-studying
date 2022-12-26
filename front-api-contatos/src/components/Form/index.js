@@ -1,19 +1,36 @@
 import React, { useState } from "react";
+import MyContext from "../../context/ContatosContext";
+// import { GET_CONTATOS } from "../../graphql";
 
 const valorInicial = { nome: "", email: "", telefone: "" };
 
 export default function Form() {
-  const [inputs, setInputs] = useState(valorInicial);
+  // const [inputs, setInputs] = useState(valorInicial);
+  const { contatos } = React.useContext(MyContext);
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    console.log(inputs);
-    setInputs(valorInicial);
+    if (contatos.isEdited) {
+      contatos.atualizarContato({
+        variables: contatos.inputs,
+      });
+      contatos.setIsEdited(false);
+    } else {
+      contatos.criarContato({
+        variables: contatos.inputs, // objeto {nome: 'TAMIRES SOUSA BATISTA', email: 'tamireshc@ail.com', telefone: '3187191833'}
+        // refetchQueries: [{ query: GET_CONTATOS }], // outra forma de dar reload na pagia apos a add
+      });
+      // contatos.refetch(); //atualiza a pagina apos a adicao de um novo contato
+    }
+    contatos.setInputs(valorInicial);
   }
 
   function handleChange(input) {
-    setInputs({ ...inputs, [input.target.name]: input.target.value });
+    contatos.setInputs({
+      ...contatos.inputs,
+      [input.target.name]: input.target.value,
+    });
   }
 
   return (
@@ -24,7 +41,7 @@ export default function Form() {
           type="text"
           onChange={handleChange}
           name="nome"
-          value={inputs.nome}
+          value={contatos.inputs.nome}
         />
       </div>
 
@@ -34,7 +51,7 @@ export default function Form() {
           type="text"
           onChange={handleChange}
           name="email"
-          value={inputs.email}
+          value={contatos.inputs.email}
         />
       </div>
 
@@ -44,14 +61,20 @@ export default function Form() {
           type="text"
           onChange={handleChange}
           name="telefone"
-          value={inputs.telefone}
+          value={contatos.inputs.telefone}
         />
       </div>
 
       <div className="form-group">
-        <button type="submit" className="btn btn-primary btn-block">
-          Adicionar
-        </button>
+        {contatos.isEdited ? (
+          <button type="submit" className="btn btn-primary btn-block">
+            Editar
+          </button>
+        ) : (
+          <button type="submit" className="btn btn-primary btn-block">
+            Adicionar
+          </button>
+        )}
       </div>
     </form>
   );

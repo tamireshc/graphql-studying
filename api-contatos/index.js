@@ -15,6 +15,7 @@ const server = new ApolloServer({
     // if (error.message.startsWith("usuario existente")) {
     //   return new Error(error.message);
     // }
+    console.log(error);
     return error;
   },
   context: () => ({ usuarioCadastroService }),

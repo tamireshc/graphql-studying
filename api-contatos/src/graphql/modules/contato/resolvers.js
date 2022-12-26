@@ -9,8 +9,9 @@ module.exports = {
       return await context.usuarioCadastroService.criarContato(data);
     },
 
-    atualizarContato: async (_, { id, data }, context) =>
-      await context.usuarioCadastroService.atualizarContato(id, data),
+    atualizarContato: async (_, { id, data }, context) => {
+      return await context.usuarioCadastroService.atualizarContato(id, data);
+    },
 
     deletarContato: async (_, { filtro }, context) =>
       await context.usuarioCadastroService.deletarContato(filtro),
